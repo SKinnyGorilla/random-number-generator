@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number Generator</title>
+    <style>
+        body {
+            background-color: #283747;
+            color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-family: 'Roboto', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .input-label {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            font-size: 24px;
+            padding: 10px;
+            margin-top: 10px;
+            width: 200px;
+            text-align: center;
+            -moz-appearance: textfield;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .input-field::-webkit-inner-spin-button,
+        .input-field::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .result-label {
+            font-size: 80px;
+            margin-top: 30px;
+        }
+
+        .generate-button {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin-top: 30px;
+            background-color: #E74C3C;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+        }
+
+        .generate-button:hover {
+            background-color: #C0392B;
+        }
+
+        .fullscreen-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #3498DB;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+        }
+
+        .fullscreen-button:hover {
+            background-color: #2980B9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Number Generator</h1>
+    <div class="input-container">
+        <label class="input-label">Enter the first number:</label>
+        <input type="number" class="input-field" id="num1" min="0" step="1">
+    </div>
+    <div class="input-container">
+        <label class="input-label">Enter the second number:</label>
+        <input type="number" class="input-field" id="num2" min="0" step="1">
+    </div>
+    <button class="generate-button" onclick="generateRandomNumber()">Generate</button>
+    <p class="result-label" id="result"></p>
+    <button class="fullscreen-button" onclick="toggleFullscreen()">Toggle Fullscreen</button>
+
+    <script>
+        function generateRandomNumber() {
+            var num1 = parseInt(document.getElementById("num1").value);
+            var num2 = parseInt(document.getElementById("num2").value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById("result").textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            if (num1 >= num2) {
+                document.getElementById("result").textContent = "The second number should be greater than the first number.";
+                return;
+            }
+
+            var random = Math.floor(Math.random() * (num2 - num1 + 1)) + num1;
+            document.getElementById("result").textContent = random;
+        }
+
+        function toggleFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            } else if (document.documentElement.mozRequestFullScreen) {
+                if (document.mozFullScreenElement) {
+                    document.mozCancelFullScreen();
+                } else {
+                    document.documentElement.mozRequestFullScreen();
+                }
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                if (document.webkitFullscreenElement) {
+                    document.webkitExitFullscreen();
+                } else {
+                    document.documentElement.webkitRequestFullscreen();
+                }
+            } else if (document.documentElement.msRequestFullscreen) {
+                if (document.msFullscreenElement) {
+                    document.msExitFullscreen();
+                } else {
+                    document.documentElement.msRequestFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
